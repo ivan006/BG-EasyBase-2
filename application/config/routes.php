@@ -38,30 +38,30 @@
 |
 */
 
-$route['default_controller'] = "g_relate/database_c/database";
+$route['default_controller'] = "table_page/database_c/database";
 $route['404_override'] = '';
 
 
 
 
-$route['migration'] = "g_relate/migrations_c";
+$route['table_page/erd'] = "table_page/erd_c";
 
-$route['g_relate/database'] = 'g_relate/database_c/database';
-$route['g_relate/database_api'] = 'g_relate/database_c/database_api';
+$route['table_page/database'] = 'table_page/database_c/database';
+$route['table_page/database_api'] = 'table_page/database_c/database_api';
 
-$route['g_relate/table/t/(:any)'] = 'g_relate/table_c/index/$1';
+$route['table_page/table/t/(:any)'] = 'table_page/table_c/index/$1';
 
-$route['g_relate/api/table/t/(:any)/insert'] = 'g_relate/table_c/insert/$1';
-$route['g_relate/api/table/t/(:any)/fetch'] = 'g_relate/table_c/fetch/$1';
-$route['g_relate/api/table/t/(:any)/delete'] = 'g_relate/table_c/delete/$1';
-$route['g_relate/api/table/t/(:any)/edit'] = 'g_relate/table_c/edit/$1';
-$route['g_relate/api/table/t/(:any)/update'] = 'g_relate/table_c/update/$1';
-$route['g_relate/api/table/t/(:any)/fetch_where/h/(:any)/n/(:any)'] = 'g_relate/table_c/fetch_where/$1/$2/$3';
-// $route['g_relate/api/table/t/(:any)/fetch_join_where/t/(:any)/h/(:any)/n/(:any)'] = 'g_relate/table_c/fetch_join_where/$1/$2/$3/$4';
-$route['g_relate/api/table/t/(:any)/fetch_join_where/t/(:any)/h/(:any)/n/(:any)'] = 'g_relate/table_c/fetch_join_where/$1/$2/$3/$4';
+$route['table_page/api/table/t/(:any)/insert'] = 'table_page/table_c/insert/$1';
+$route['table_page/api/table/t/(:any)/fetch'] = 'table_page/table_c/fetch/$1';
+$route['table_page/api/table/t/(:any)/delete'] = 'table_page/table_c/delete/$1';
+$route['table_page/api/table/t/(:any)/edit'] = 'table_page/table_c/edit/$1';
+$route['table_page/api/table/t/(:any)/update'] = 'table_page/table_c/update/$1';
+$route['table_page/api/table/t/(:any)/fetch_where/h/(:any)/n/(:any)'] = 'table_page/table_c/fetch_where/$1/$2/$3';
+// $route['table_page/api/table/t/(:any)/fetch_join_where/t/(:any)/h/(:any)/n/(:any)'] = 'table_page/table_c/fetch_join_where/$1/$2/$3/$4';
+$route['table_page/api/table/t/(:any)/fetch_join_where/t/(:any)/h/(:any)/n/(:any)'] = 'table_page/table_c/fetch_join_where/$1/$2/$3/$4';
 
-$route['g_relate/record/t/(:any)/r/(:num)'] = 'g_relate/record_c/index/$1/$2';
+$route['table_page/record/t/(:any)/r/(:num)'] = 'table_page/record_c/index/$1/$2';
 
-$route['mergetest'] = 'g_relate/record_c/mergetest';
+$route['mergetest'] = 'table_page/record_c/mergetest';
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */

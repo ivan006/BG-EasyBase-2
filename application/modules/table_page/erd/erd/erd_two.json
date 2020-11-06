@@ -1,0 +1,90 @@
+{
+  "events": {
+    "fields": {
+      "buyer_specialty_organization_id": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "seller_specialty_organization_id": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "event_resource_link_children": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "name": {
+        "type": "character varying",
+        "length": "(100)",
+        "null": "NOT NULL"
+      }
+    },
+    "relations": {
+
+    }
+  },
+  "event_resource_links": {
+    "fields": {
+      "bedding_specialty_resource_id": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "personal_specialty_resource_id": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "bedding_specialty_event_id": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "personal_specialty_event_id": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      }
+    },
+    "relations": {
+
+    }
+  },
+  "resources": {
+    "fields": {
+      "event_id": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "event_resource_link_children": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "name": {
+        "type": "character varying",
+        "length": "(100)",
+        "null": "NOT NULL"
+      }
+    },
+    "relations": {
+
+    }
+  },
+  "organizations": {
+    "fields": {
+      "buyer_specialty_event_children": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "seller_specialty_event_children": {
+        "type": "BIGINT",
+        "collation": "UNSIGNED"
+      },
+      "name": {
+        "type": "character varying",
+        "length": "(100)",
+        "null": "NOT NULL"
+      }
+    },
+
+    "relations": {
+
+    }
+  }
+}

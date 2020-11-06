@@ -1,5 +1,5 @@
 <?php
-class G_tbls extends MY_Controller
+class table_page_lib extends MY_Controller
 {
 
 	function __construct()
@@ -8,7 +8,7 @@ class G_tbls extends MY_Controller
 
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
-		$this->load->library('g_migrate');
+		$this->load->library('erd_lib');
 	}
 
   public function insert($table)
@@ -159,9 +159,9 @@ class G_tbls extends MY_Controller
   {
 
 		// $posts = $this->db->select('*')->where($haystack, $needle)->from($table_1)->join($table_2, "$table_1.$table_2_key = $table_2.id")->get()->result_array();
-		$table_2_singular = $this->g_migrate->grammar_singular($table_2);
+		$table_2_singular = $this->erd_lib->grammar_singular($table_2);
 		$table_2_singular = $table_2_singular."_id";
-		// $table_1_singular = $this->g_migrate->grammar_singular($table_1);
+		// $table_1_singular = $this->erd_lib->grammar_singular($table_1);
 		// $haystack = $table_1_singular.".".$haystack;
 
 
@@ -212,7 +212,7 @@ class G_tbls extends MY_Controller
 
 		// $result = array();
 		foreach ($rows_formatted as $key => $value) {
-			if (!$this->g_migrate->endsWith($value["name"], "_links")) {
+			if (!$this->erd_lib->endsWith($value["name"], "_links")) {
 				$rows_no_links[]["name"] = $value["name"];
 			}
 		}

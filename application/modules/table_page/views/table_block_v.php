@@ -187,7 +187,7 @@ if (isset($overview["type"])) {
       alert("Both field is required");
     }else{
       $.ajax({
-        url: "<?php echo base_url(); ?>g_relate/api/table/t/<?php echo $overview["foreign_plural"]; ?>/insert",
+        url: "<?php echo base_url(); ?>table_page/api/table/t/<?php echo $overview["foreign_plural"]; ?>/insert",
         type: "post",
         dataType: "json",
         data: {
@@ -226,7 +226,7 @@ if (isset($overview["type"])) {
 
   function <?php echo $overview["foreign_plural"]; ?>_fetch(){
     $.ajax({
-      url: "<?php echo base_url(); ?>g_relate/api/table/t/<?php echo $overview["foreign_plural"]; ?>/<?php echo $data_endpoint; ?>",
+      url: "<?php echo base_url(); ?>table_page/api/table/t/<?php echo $overview["foreign_plural"]; ?>/<?php echo $data_endpoint; ?>",
       type: "post",
       dataType: "json",
       success: function(data){
@@ -262,7 +262,7 @@ if (isset($overview["type"])) {
               var a = `
               <a href="#" value="${row.id}" id="<?php echo $overview["rel_name"]; ?>_del" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></a>
               <a href="#" value="${row.id}" id="<?php echo $overview["rel_name"]; ?>_edit" class="btn btn-sm btn-outline-success"><i class="fas fa-edit"></i></a>
-              <a href="/g_relate/record/t/<?php echo $view_link_table; ?>/r/${row.<?php echo $view_link_id_key; ?>}" class="btn btn-sm btn-outline-primary">View</a>
+              <a href="/table_page/record/t/<?php echo $view_link_table; ?>/r/${row.<?php echo $view_link_id_key; ?>}" class="btn btn-sm btn-outline-primary">View</a>
               `;
               return a;
             } }
@@ -306,7 +306,7 @@ if (isset($overview["type"])) {
       if (result.value) {
 
         $.ajax({
-          url: "<?php echo base_url(); ?>g_relate/api/table/t/<?php echo $overview["foreign_plural"]; ?>/delete",
+          url: "<?php echo base_url(); ?>table_page/api/table/t/<?php echo $overview["foreign_plural"]; ?>/delete",
           type: "post",
           dataType: "json",
           data: {
@@ -356,7 +356,7 @@ if (isset($overview["type"])) {
     var edit_id = $(this).attr("value");
 
     $.ajax({
-      url: "<?php echo base_url(); ?>g_relate/api/table/t/<?php echo $overview["foreign_plural"]; ?>/edit",
+      url: "<?php echo base_url(); ?>table_page/api/table/t/<?php echo $overview["foreign_plural"]; ?>/edit",
       type: "post",
       dataType: "json",
       data: {
@@ -409,7 +409,7 @@ if (isset($overview["type"])) {
       alert("Both field is required");
     }else{
       $.ajax({
-        url: "<?php echo base_url(); ?>g_relate/api/table/t/<?php echo $overview["foreign_plural"]; ?>/update",
+        url: "<?php echo base_url(); ?>table_page/api/table/t/<?php echo $overview["foreign_plural"]; ?>/update",
         type: "post",
         dataType: "json",
         data: {

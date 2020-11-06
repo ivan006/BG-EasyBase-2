@@ -9,14 +9,14 @@ class Record_c extends MY_Controller
 		$this->load->helper(array('form', 'url'));
 		$this->load->library('form_validation');
 		// $this->load->model('trip');
-		// $this->load->library('../modules/trips/controllers/g_tbls');
-		$this->load->library('g_tbls');
-		$this->load->library('g_migrate');
+		// $this->load->library('../modules/trips/controllers/table_page_lib');
+		$this->load->library('table_page_lib');
+		$this->load->library('erd_lib');
 	}
 
 	public function index($table, $record_id)
 	{
-		$overview_table_singular = $this->g_migrate->grammar_singular($table);
+		$overview_table_singular = $this->erd_lib->grammar_singular($table);
 
 
 		$header["title"] = $overview_table_singular." ".$record_id;
@@ -24,7 +24,7 @@ class Record_c extends MY_Controller
 
 		$body["overview"]["foreign_plural"] = $table;
 		$body["overview"]["foreign_singular"] = $overview_table_singular;
-		$record = $this->g_tbls->fetch_where($body["overview"]["foreign_plural"], "id", $record_id)["posts"][0];
+		$record = $this->table_page_lib->fetch_where($body["overview"]["foreign_plural"], "id", $record_id)["posts"][0];
 		$body["overview"]["rel_name"] = $body["overview"]["foreign_singular"];
 		$body["overview"]["specialty"] = "";
 
@@ -70,20 +70,20 @@ class Record_c extends MY_Controller
 
 	public function relations($parent_overview, $parent_record, $dont_scan)
 	{
-		$rows = $this->g_tbls->table_rows($parent_overview["foreign_plural"]);
+		$rows = $this->table_page_lib->table_rows($parent_overview["foreign_plural"]);
 		foreach ($rows as $key => $value) {
 			if ($key !== $dont_scan) {
-				if ($this->g_migrate->endsWith($key, "_id")) {
+				if ($this->erd_lib->endsWith($key, "_id")) {
 
 					$suffix = "_id";
 					$overview["rel_name"] = $this->suffix_remover($key, $suffix);
 
-					$specialty_explode = $this->g_migrate->specialty_explode($overview["rel_name"]);
+					$specialty_explode = $this->erd_lib->specialty_explode($overview["rel_name"]);
 
 					$overview["foreign_singular"] = $specialty_explode[0];
 					$overview["specialty"] = $specialty_explode[1];
 
-					$overview["foreign_plural"] = $this->g_migrate->grammar_plural($overview["foreign_singular"]);
+					$overview["foreign_plural"] = $this->erd_lib->grammar_plural($overview["foreign_singular"]);
 
 					if (!empty($parent_record)) {
 						$haystack = "id";
@@ -96,12 +96,12 @@ class Record_c extends MY_Controller
 
 
 					$overview["type"] = "owner";
-					$sub_rows["all"] = $this->g_tbls->table_rows($overview["foreign_plural"]);
+					$sub_rows["all"] = $this->table_page_lib->table_rows($overview["foreign_plural"]);
 
 					$sub_rows["visible"] = array();
 					foreach ($sub_rows["all"] as $sub_rows_key => $sub_rows_value) {
-						// if (!$this->g_migrate->endsWith($join_merge_key, "_children") && $parent_overview["foreign_singular"]."_id" !== $join_merge_key) {
-						if (!$this->g_migrate->endsWith($sub_rows_key, "_children")) {
+						// if (!$this->erd_lib->endsWith($join_merge_key, "_children") && $parent_overview["foreign_singular"]."_id" !== $join_merge_key) {
+						if (!$this->erd_lib->endsWith($sub_rows_key, "_children")) {
 							$sub_rows["visible"][$sub_rows_key] = $sub_rows_value;
 						}
 					}
@@ -113,19 +113,19 @@ class Record_c extends MY_Controller
 					);
 
 
-				} elseif ($this->g_migrate->endsWith($key, "_children")) {
+				} elseif ($this->erd_lib->endsWith($key, "_children")) {
 
 					$suffix = "_children";
 					$overview["rel_name"] = $this->suffix_remover($key, $suffix);
 
-					$specialty_explode = $this->g_migrate->specialty_explode($overview["rel_name"]);
+					$specialty_explode = $this->erd_lib->specialty_explode($overview["rel_name"]);
 
 					$overview["foreign_singular"] = $specialty_explode[0];
 					$overview["specialty"] = $specialty_explode[1];
 
-					$overview["foreign_plural"] = $this->g_migrate->grammar_plural($overview["foreign_singular"]);
+					$overview["foreign_plural"] = $this->erd_lib->grammar_plural($overview["foreign_singular"]);
 
-					if ($this->g_migrate->endsWith($overview["foreign_plural"], "_links"))
+					if ($this->erd_lib->endsWith($overview["foreign_plural"], "_links"))
 					{
 
 
@@ -139,7 +139,7 @@ class Record_c extends MY_Controller
 						}
 
 						$overview["type"] = "reusable_items";
-						// $sub_rows = $this->g_tbls->table_rows($overview["foreign_plural"]);
+						// $sub_rows = $this->table_page_lib->table_rows($overview["foreign_plural"]);
 
 						$record = array();
 						// $dont_scan = $parent_overview["foreign_singular"]."_id";
@@ -173,8 +173,8 @@ class Record_c extends MY_Controller
 
 						$join["rows"]["visible"] = array();
 						foreach ($join_merge as $join_merge_key => $join_merge_value) {
-							// if (!$this->g_migrate->endsWith($join_merge_key, "_children") && $parent_overview["foreign_singular"]."_id" !== $join_merge_key) {
-							if (!$this->g_migrate->endsWith($join_merge_key, "_children")) {
+							// if (!$this->erd_lib->endsWith($join_merge_key, "_children") && $parent_overview["foreign_singular"]."_id" !== $join_merge_key) {
+							if (!$this->erd_lib->endsWith($join_merge_key, "_children")) {
 								$join["rows"]["visible"][$join_merge_key] = $join_merge_value;
 							}
 						}
@@ -197,7 +197,7 @@ class Record_c extends MY_Controller
 						// var_dump($parent_overview);
 
 						if (!empty($parent_record)) {
-							$spec_prefix = $this->g_migrate->specialty_prefix($overview["specialty"]);
+							$spec_prefix = $this->erd_lib->specialty_prefix($overview["specialty"]);
 							$foreign_rel_name = $spec_prefix.$parent_overview["foreign_singular"];
 							$haystack = $foreign_rel_name."_id";
 							$needle = $parent_record["id"];
@@ -209,12 +209,12 @@ class Record_c extends MY_Controller
 						}
 						$overview["type"] = "dedicated_items";
 
-						$sub_rows["all"] = $this->g_tbls->table_rows($overview["foreign_plural"]);
+						$sub_rows["all"] = $this->table_page_lib->table_rows($overview["foreign_plural"]);
 
 						$sub_rows["visible"] = array();
 						foreach ($sub_rows["all"] as $sub_rows_key => $sub_rows_value) {
-							// if (!$this->g_migrate->endsWith($join_merge_key, "_children") && $parent_overview["foreign_singular"]."_id" !== $join_merge_key) {
-							if (!$this->g_migrate->endsWith($sub_rows_key, "_children")) {
+							// if (!$this->erd_lib->endsWith($join_merge_key, "_children") && $parent_overview["foreign_singular"]."_id" !== $join_merge_key) {
+							if (!$this->erd_lib->endsWith($sub_rows_key, "_children")) {
 								$sub_rows["visible"][$sub_rows_key] = $sub_rows_value;
 							}
 						}
@@ -236,8 +236,8 @@ class Record_c extends MY_Controller
 
 		$result["visible"] = array();
 		foreach ($rows as $key => $value) {
-			// if (!$this->g_migrate->endsWith($key, "_children") && $parent_overview["foreign_singular"]."_id" !== $key) {
-			if (!$this->g_migrate->endsWith($key, "_children")) {
+			// if (!$this->erd_lib->endsWith($key, "_children") && $parent_overview["foreign_singular"]."_id" !== $key) {
+			if (!$this->erd_lib->endsWith($key, "_children")) {
 				$result["visible"][$key] = $value;
 			}
 		}
@@ -250,7 +250,7 @@ class Record_c extends MY_Controller
 
 	public function mergetest()
 	{
-		$result = $this->g_tbls->mergetest();
+		$result = $this->table_page_lib->mergetest();
 		header('Content-Type: application/json');
 		echo json_encode($result, JSON_PRETTY_PRINT);
 	}

@@ -1,5 +1,5 @@
 <?php
-class G_migrate extends MY_Controller
+class erd_lib extends MY_Controller
 {
 
 	function __construct()
@@ -11,20 +11,20 @@ class G_migrate extends MY_Controller
 	}
 
 
-	function sql_three()
+	function erd_three()
 	{
-		$sql_two_path = APPPATH.'modules/g_relate/sql/sql/sql_two.json';
-		// include($sql_two_path);
-		$sql_two = file_get_contents($sql_two_path);
-		$sql_two = json_decode($sql_two, true);
-		// $sql_two = json_encode($sql_two, JSON_PRETTY_PRINT);
+		$erd_two_path = APPPATH.'modules/table_page/erd/erd/erd_two.json';
+		// include($erd_two_path);
+		$erd_two = file_get_contents($erd_two_path);
+		$erd_two = json_decode($erd_two, true);
+		// $erd_two = json_encode($erd_two, JSON_PRETTY_PRINT);
 
 		ob_start();
-		foreach ($sql_two as $table_key => $table) {
-
+		foreach ($erd_two as $table_key => $table) {
+			$table_fields = $table["fields"];
 			echo "CREATE TABLE `".$table_key."` "."(\n";
 			echo "`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT ,\n";
-			foreach ($table as $field_key => $field_value) {
+			foreach ($table_fields as $field_key => $field_value) {
 				$fld = $field_value;
 				echo "`";
 				echo $field_key;
@@ -73,16 +73,29 @@ class G_migrate extends MY_Controller
 		?>
 
 		<?php
-		$sql = ob_get_contents();
+		$erd = ob_get_contents();
 
 		ob_end_clean();
 
-		return $sql;
+		return $erd;
 	}
 
-	function sql_two()
+	function erd_two()
 	{
-		$one_path = APPPATH.'modules/g_relate/sql/sql/one.json';
+		$one_path = APPPATH.'modules/table_page/erd/erd/erd_two.json';
+		// include($one_path);
+		$one = file_get_contents($one_path);
+		$one = json_decode($one, true);
+
+		$one = json_encode($one, JSON_PRETTY_PRINT);
+
+
+		return $one;
+	}
+
+	function erd_two_old()
+	{
+		$one_path = APPPATH.'modules/table_page/erd/erd/one.json';
 		// include($one_path);
 		$one = file_get_contents($one_path);
 		$one = json_decode($one, true);
@@ -253,7 +266,7 @@ class G_migrate extends MY_Controller
 
 	function model_two()
 	{
-		$one_path = APPPATH.'modules/g_relate/sql/sql/one.json';
+		$one_path = APPPATH.'modules/table_page/erd/erd/one.json';
 		$one = file_get_contents($one_path);
 		$one = json_decode($one, true);
 
@@ -262,7 +275,7 @@ class G_migrate extends MY_Controller
 
 
 		ob_start();
-		// foreach ($sql_two as $table_key => $table) {
+		// foreach ($erd_two as $table_key => $table) {
 		foreach ($relationships as $table_key => $table_value) {
 
 			echo "class ".ucfirst($this->grammar_singular($table_key)) ." extends DataMapper {\n\n";
