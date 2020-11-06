@@ -11,37 +11,49 @@
 </head>
 <body>
 
-<div class="jumbotron text-center">
-  <h1>Table Page - ERD</h1>
-  <p>.........</p>
-</div>
+  <div class="jumbotron text-center">
+    <h1>Table Page - ERD</h1>
 
-<div class="container">
-  <div class="row">
-		<h1>ERD state</h1>
-    <div class="col-md-12">
-			<pre><?php echo $erd_two; ?></pre>
-			<hr>
-
-    </div>
   </div>
-  <div class="row">
-    <div class="col-sm-4">
 
-			<div  style="display:inline-block; padding:10px;">
-				<h1>erd_three</h1>
-				<pre><?php echo $erd_three; ?></pre>
-				<hr>
-			</div>
+  <div class="container">
+    <details>
+      <summary>State</summary>
 
-			<div  style="display:inline-block; padding:10px;">
-				<h1>model_two</h1>
-				<pre><?php echo $model_two; ?></pre>
-				<hr>
-			</div>
-    </div>
+      <pre><?php echo $erd_two; ?></pre>
+      <hr>
+    </details>
+
+    <details>
+      <summary>Relations - Discrepencies</summary>
+
+      <pre><?php echo 123; ?></pre>
+      <hr>
+
+    </details>
+    <details>
+      <summary>Relations - Reciprication cache</summary>
+
+      <pre><?php echo $model_two; ?></pre>
+      <hr>
+
+    </details>
+
+
+    <details>
+      <summary>DB - Discrepencies</summary>
+
+      <pre><?php echo 123; ?></pre>
+      <hr>
+    </details>
+    <details>
+      <summary>DB - SQL</summary>
+
+      <pre><?php echo $erd_three; ?></pre>
+      <hr>
+    </details>
+
   </div>
-</div>
 
 </body>
 </html>
