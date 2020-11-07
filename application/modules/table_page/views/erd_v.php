@@ -17,40 +17,48 @@
   </div>
 
   <div class="container">
+
     <details>
-      <summary>State</summary>
+      <summary>ERD</summary>
 
       <pre><?php echo $erd_two; ?></pre>
       <hr>
     </details>
+    <details>
+
+      <summary>Generate - ERD to SQL (optional)</summary>
+
+      <pre><?php echo $erd_three; ?></pre>
+      <hr>
+    </details>
+    <br>
+    <details>
+      <summary>Generate - DB to ERD</summary>
+
+      <pre><?php echo 123; ?></pre>
+      <hr>
+    </details>
 
     <details>
-      <summary>Relations - Discrepencies</summary>
+      <summary>Errors - DB discrepancies </summary>
+
+      <pre><?php echo 123; ?></pre>
+      <hr>
+    </details>
+
+    <details>
+      <summary>Errors - reciprocal relations </summary>
 
       <pre><?php echo 123; ?></pre>
       <hr>
 
     </details>
     <details>
-      <summary>Relations - Reciprication cache</summary>
+      <summary>Generate - reciprocal relation cache</summary>
 
       <pre><?php echo $model_two; ?></pre>
       <hr>
 
-    </details>
-
-
-    <details>
-      <summary>DB - Discrepencies</summary>
-
-      <pre><?php echo 123; ?></pre>
-      <hr>
-    </details>
-    <details>
-      <summary>DB - SQL</summary>
-
-      <pre><?php echo $erd_three; ?></pre>
-      <hr>
     </details>
 
   </div>
