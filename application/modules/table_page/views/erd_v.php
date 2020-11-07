@@ -21,41 +21,36 @@
     <details>
       <summary>ERD</summary>
 
-      <pre><?php echo $erd_two; ?></pre>
+      <pre><?php echo $erd; ?></pre>
       <hr>
     </details>
     <details>
 
-      <summary>Generate - ERD to SQL (optional)</summary>
+      <summary>ERD to DB</summary>
 
-      <pre><?php echo $erd_three; ?></pre>
+      <pre><?php echo $erd_to_db; ?></pre>
       <hr>
     </details>
-    <br>
+
+    <details open=open>
+      <summary>DB to ERD</summary>
+
+      <pre><?php echo $db_to_erd; ?></pre>
+      <hr>
+    </details>
+
     <details>
-      <summary>Generate - DB to ERD</summary>
+      <summary>Diff</summary>
+
+      <pre>Identicle: <?php echo $diff; ?></pre>
+      <hr>
+    </details>
+
+    <details>
+      <summary>ERD cache</summary>
 
       <pre><?php echo 123; ?></pre>
       <hr>
-    </details>
-
-    <details>
-      <summary>Errors - DB discrepancies </summary>
-
-      <pre><?php echo 123; ?></pre>
-      <hr>
-    </details>
-
-    <details>
-      <summary>Errors - reciprocal relations </summary>
-
-      <pre><?php echo 123; ?></pre>
-      <hr>
-
-    </details>
-    <details>
-      <summary>Generate - reciprocal relation cache</summary>
-
       <pre><?php echo $model_two; ?></pre>
       <hr>
 

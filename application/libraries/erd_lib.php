@@ -11,7 +11,7 @@ class erd_lib extends MY_Controller
 	}
 
 
-	function erd_three()
+	function erd_to_db()
 	{
 		$erd_two_path = APPPATH.'modules/table_page/erd/erd/erd_two.json';
 		// include($erd_two_path);
@@ -23,52 +23,61 @@ class erd_lib extends MY_Controller
 		foreach ($erd_two as $table_key => $table) {
 			$table_fields = $table["fields"];
 			echo "CREATE TABLE `".$table_key."` "."(\n";
-			echo "`id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT ,\n";
+			// echo "`id` bigint(20) unsigned NOT NULL AUTO_INCREMENT ,\n";
+
+			$nth_field = 0;
 			foreach ($table_fields as $field_key => $field_value) {
+
+				$nth_field = $nth_field+1;
+				if ($nth_field > 1) {
+					echo ",\n";
+				}
+
 				$fld = $field_value;
 				echo "`";
 				echo $field_key;
 				echo "` ";
-				if (isset($fld["type"])) {
-					echo $fld["type"];
-					// echo " ";
-				}
-				if (isset($fld["length"])) {
-					echo $fld["length"];
-					echo " ";
-				}	else {
+				if (isset($fld["Type"])) {
+					echo $fld["Type"];
 					echo " ";
 				}
-				if (isset($fld["collation"])) {
-					echo $fld["collation"];
+				if (isset($fld["Default"])) {
+					echo $fld["Default"];
 					echo " ";
 				}
-				if (isset($fld["default"])) {
-					echo $fld["default"];
-					echo " ";
+				if (isset($fld["Null"])) {
+					if ($fld["Null"] == "NO") {
+						echo "NOT NULL";
+						echo " ";
+					}
 				}
-				if (isset($fld["null"])) {
-					echo $fld["null"];
-					echo " ";
-				}
-				if (isset($fld["comments"])) {
-					echo $fld["comments"];
+				if (isset($fld["Comments"])) {
+					echo $fld["Comments"];
 					echo " ";
 				}
 				if (isset($fld["a_i"])) {
 					echo $fld["a_i"];
 					echo " ";
 				}
-				if (isset($fld["virtuality"])) {
-					echo $fld["virtuality"];
+				if (isset($fld["Virtuality"])) {
+					echo $fld["Virtuality"];
 					echo " ";
 				}
-				echo ",\n";
+				if (isset($fld["Extra"])) {
+					echo $fld["Extra"];
+					echo " ";
+				}
+				if (isset($fld["Key"])) {
+					if ($fld["Key"] == "PRI") {
+						echo "PRIMARY KEY";
+						echo " ";
+					}
+				}
 
 			}
-			echo "PRIMARY KEY (`id`)\n";
-			echo ") ENGINE = InnoDB;\n";
-			echo "\n";
+			// echo ",\nPRIMARY KEY (`id`)";
+			echo "\n) ENGINE = InnoDB;";
+			echo "\n\n";
 		}
 		?>
 
@@ -80,17 +89,38 @@ class erd_lib extends MY_Controller
 		return $erd;
 	}
 
-	function erd_two()
+	function erd()
 	{
 		$one_path = APPPATH.'modules/table_page/erd/erd/erd_two.json';
 		// include($one_path);
 		$one = file_get_contents($one_path);
 		$one = json_decode($one, true);
 
+		// ksort($one);
+		// foreach ($one as $key => $value) {
+		// 	ksort($value["fields"]);
+		// 	$one[$key]["fields"] = $value["fields"];
+		// }
 		$one = json_encode($one, JSON_PRETTY_PRINT);
 
 
 		return $one;
+	}
+
+	function diff()
+	{
+
+		$db_to_erd = $this->db_to_erd();
+		$erd = $this->erd();
+
+		if ($db_to_erd == $erd) {
+			$identicle = "yes";
+		} else {
+			$identicle = "no";
+			// code...
+		}
+
+		return $identicle;
 	}
 
 	function erd_two_old()
@@ -116,8 +146,7 @@ class erd_lib extends MY_Controller
 			// $tables[$table_key]["primary_key"] = "id";
 			// $tables[$table_key][] = array(
 			// 	"name" => "id",
-			// 	"type" => "BIGINT",
-			// 	"collation" => "UNSIGNED",
+			// 	"Type" => "bigint(20) unsigned",
 			// 	"null" => "NOT NULL",
 			// 	"a_i" => "AUTO_INCREMENT",
 			// );
@@ -137,8 +166,7 @@ class erd_lib extends MY_Controller
 				$rel = $this->relationship_helper($rel_name, $table_key);
 
 				$tables[$table_key][$rel["rel_name_singular"]."_children"] = array(
-				"type" => "BIGINT",
-				"collation" => "UNSIGNED",
+				"Type" => "bigint(20) unsigned",
 				);
 			}
 			foreach ($table_value["has_one"] as $rel_name) {
@@ -150,8 +178,7 @@ class erd_lib extends MY_Controller
 				// $rel_key = $this->grammar_singular($rel_key);
 				$rel = $this->relationship_helper($rel_name, $table_key);
 				$tables[$table_key][$rel["rel_name_singular"]."_id"] = array(
-				"type" => "BIGINT",
-				"collation" => "UNSIGNED",
+				"Type" => "bigint(20) unsigned",
 				);
 			}
 
@@ -177,23 +204,20 @@ class erd_lib extends MY_Controller
 				$link_table = $link_table."_links";
 
 				$tables[$link_table][$rel["rel_name_singular"]."_id"] = array(
-				"type" => "BIGINT",
-				"collation" => "UNSIGNED",
+				"Type" => "bigint(20) unsigned",
 				);
 
 
 				$link_table = $this->grammar_singular($link_table);
 				$tables[$table_key][$link_table."_children"] = array(
-				"type" => "BIGINT",
-				"collation" => "UNSIGNED",
+				"Type" => "bigint(20) unsigned",
 				);
 			}
 
 
 			$tables[$table_key]["name"] = array(
-				"type" => "character varying",
-				"length" => "(100)",
-				"null" => "NOT NULL",
+				"Type" => "varchar(100)",
+				"Null" => "NOT NULL",
 			);
 
 			$nth_table = $nth_table+1;
@@ -397,4 +421,80 @@ class erd_lib extends MY_Controller
 		return $result;
 
 	}
+
+	function db_to_erd()
+	{
+		$query = array(
+      "SHOW TABLES",
+    );
+    $query = implode(" ", $query);
+    $query_result = $this->db->query($query)->result_array();
+
+
+		// $query_result = array_column($query_result, 'Field');
+
+		$tables = array();
+		foreach ($query_result as $key => $value) {
+			$value = reset($value);
+			$tables[$value] = array();
+		}
+		// ksort($tables);
+
+
+		$tables_and_fields = array();
+		foreach ($tables as $key => $value) {
+
+			$query = array(
+				"SHOW COLUMNS FROM $key",
+			);
+			$query = implode(" ", $query);
+			$query_result = $this->db->query($query)->result_array();
+
+			$fields = $query_result;
+
+			$fields_result = array();
+			foreach ($fields as $fields_key => $fields_value) {
+				$field_props = $fields_value;
+				foreach ($field_props as $field_props_key => $field_props_value) {
+					switch ($field_props_key) {
+						case 'Null':
+						if ($field_props_value == "YES") {
+							unset($field_props[$field_props_key]);
+						}
+						case 'Key':
+						if ($field_props_value == "") {
+							unset($field_props[$field_props_key]);
+						}
+						case 'Default':
+						if ($field_props_value == null) {
+							unset($field_props[$field_props_key]);
+						}
+						case 'Extra':
+						if ($field_props_value == "") {
+							unset($field_props[$field_props_key]);
+						}
+
+						break;
+
+						default:
+						// code...
+						break;
+					}
+				}
+				$fields_result[$field_props["Field"]] = $field_props;
+				unset($fields_result[$field_props["Field"]]["Field"]);
+
+			}
+			// ksort($fields_result);
+
+
+			$tables_and_fields[$key]["fields"] = $fields_result;
+
+		}
+
+		$result = json_encode($tables_and_fields, JSON_PRETTY_PRINT);
+		return $result;
+
+	}
+
 }

@@ -12,9 +12,11 @@ class Erd_c extends MY_Controller
 
 	function index()
 	{
-		$data["erd_two"] = $this->erd_lib->erd_two();
-		$data["erd_three"] = $this->erd_lib->erd_three();
+		$data["erd"] = $this->erd_lib->erd();
+		$data["erd_to_db"] = $this->erd_lib->erd_to_db();
 		$data["model_two"] = $this->erd_lib->model_two();
+		$data["db_to_erd"] = $this->erd_lib->db_to_erd();
+		$data["diff"] = $this->erd_lib->diff();
 
 
 		// header('Content-Type: application/json');

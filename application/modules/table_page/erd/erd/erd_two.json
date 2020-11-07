@@ -1,90 +1,87 @@
 {
-  "events": {
-    "fields": {
-      "buyer_specialty_organization_id": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "seller_specialty_organization_id": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "event_resource_link_children": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "name": {
-        "type": "character varying",
-        "length": "(100)",
-        "null": "NOT NULL"
-      }
+    "event_resource_links": {
+        "fields": {
+          "id": {
+            "Type": "bigint(20) unsigned",
+            "Null": "NO",
+            "Key": "PRI",
+            "Extra": "auto_increment"
+          },
+            "bedding_specialty_event_id": {
+                "Type": "bigint(20) unsigned"
+            },
+            "bedding_specialty_resource_id": {
+                "Type": "bigint(20) unsigned"
+            },
+            "personal_specialty_event_id": {
+                "Type": "bigint(20) unsigned"
+            },
+            "personal_specialty_resource_id": {
+                "Type": "bigint(20) unsigned"
+            }
+        }
     },
-    "relations": {
-
-    }
-  },
-  "event_resource_links": {
-    "fields": {
-      "bedding_specialty_resource_id": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "personal_specialty_resource_id": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "bedding_specialty_event_id": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "personal_specialty_event_id": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      }
+    "events": {
+        "fields": {
+          "id": {
+            "Type": "bigint(20) unsigned",
+            "Null": "NO",
+            "Key": "PRI",
+            "Extra": "auto_increment"
+          },
+            "buyer_specialty_organization_id": {
+                "Type": "bigint(20) unsigned"
+            },
+            "event_resource_link_children": {
+                "Type": "bigint(20) unsigned"
+            },
+            "name": {
+                "Type": "varchar(100)",
+                "Null": "NO"
+            },
+            "seller_specialty_organization_id": {
+                "Type": "bigint(20) unsigned"
+            }
+        }
     },
-    "relations": {
-
-    }
-  },
-  "resources": {
-    "fields": {
-      "event_id": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "event_resource_link_children": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "name": {
-        "type": "character varying",
-        "length": "(100)",
-        "null": "NOT NULL"
-      }
+    "organizations": {
+        "fields": {
+          "id": {
+            "Type": "bigint(20) unsigned",
+            "Null": "NO",
+            "Key": "PRI",
+            "Extra": "auto_increment"
+          },
+            "buyer_specialty_event_children": {
+                "Type": "bigint(20) unsigned"
+            },
+            "name": {
+                "Type": "varchar(100)",
+                "Null": "NO"
+            },
+            "seller_specialty_event_children": {
+                "Type": "bigint(20) unsigned"
+            }
+        }
     },
-    "relations": {
-
+    "resources": {
+        "fields": {
+          "id": {
+            "Type": "bigint(20) unsigned",
+            "Null": "NO",
+            "Key": "PRI",
+            "Extra": "auto_increment"
+          },
+            "event_id": {
+                "Type": "bigint(20) unsigned"
+            },
+            "event_resource_link_children": {
+                "Type": "bigint(20) unsigned"
+            },
+            "name": {
+                "Type": "varchar(100)",
+                "Null": "NO"
+            }
+        }
     }
-  },
-  "organizations": {
-    "fields": {
-      "buyer_specialty_event_children": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "seller_specialty_event_children": {
-        "type": "BIGINT",
-        "collation": "UNSIGNED"
-      },
-      "name": {
-        "type": "character varying",
-        "length": "(100)",
-        "null": "NOT NULL"
-      }
-    },
-
-    "relations": {
-
-    }
-  }
 }
