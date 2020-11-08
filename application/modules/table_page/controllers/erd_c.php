@@ -12,6 +12,7 @@ class Erd_c extends MY_Controller
 
 	function index()
 	{
+		// echo "<pre>";
 		$data["erd"] = $this->erd_lib->erd();
 		$data["erd_to_db"] = $this->erd_lib->erd_to_db();
 		$data["model_two"] = $this->erd_lib->model_two();

@@ -115,7 +115,7 @@ class erd_lib extends MY_Controller
 		$erd = $this->erd();
 		$erd_no_rels = json_decode($erd, true);
 		foreach ($erd_no_rels as $key => $value) {
-			unset($erd_no_rels[$key]["relationships"]);
+			unset($erd_no_rels[$key]["items"]);
 		}
 		$erd_no_rels = json_encode($erd_no_rels, JSON_PRETTY_PRINT);
 
@@ -251,39 +251,7 @@ class erd_lib extends MY_Controller
 
 				$rel = $this->relationship_helper($rel_name, $table_key);
 
-				if (isset($result[$rel["foreign_plural"]])) {
 
-
-					// echo $foreign_rel_name."-- <br>";
-					// echo $rel["foreign_plural"]."-- ".$rel["rel_name_singular"]."<br>";
-					// echo $table_key." - ".$rel_name." -- ".$rel["foreign_rel_name"]."<br>";
-
-					$has_many_key_specialised = array_search($rel["foreign_rel_name"], $result[$rel["foreign_plural"]]["has_many"]);
-
-					$has_many_key_generic = array_search($table_key, $result[$rel["foreign_plural"]]["has_many"]);
-
-					if ($has_many_key_specialised !== false) {
-						$has_many_key = $has_many_key_specialised;
-					} else {
-						$has_many_key = $has_many_key_generic;
-					}
-
-					// echo "<pre>".$table_key."	-	".$rel_name."	-	".$rel["foreign_rel_name"]."	-	".$table_key."	-	#".$has_many_key."#"."<br>";
-					// echo "</table>";
-
-					if ($has_many_key !== false) {
-						// echo $table_key." in ".$rel_name." has_many<br>";
-						array_push($result[$rel["foreign_plural"]]["has_many_belong_many"], $rel["foreign_rel_name"]);
-						// unset($result[$rel["foreign_plural"]]["has_many"][$has_many_key]);
-						array_push($has_manies_to_unset, array($rel["foreign_plural"], $has_many_key) );
-
-
-						array_push($result[$table_key]["has_many_belong_many"], $rel_name);
-						unset($result[$table_key]["has_many"][$rel_key]);
-					} else {
-						array_push($result[$rel["foreign_plural"]]["has_one"], $rel["foreign_rel_name"]);
-					}
-				}
 			}
 			// var_dump($has_manies_to_unset);
 			foreach ($has_manies_to_unset as $key => $value) {
@@ -366,21 +334,10 @@ class erd_lib extends MY_Controller
 
 	function relationship_helper($rel_name, $local_table) {
 		$rel_name_singular = $this->grammar_singular($rel_name);
-		$specialty_explode = $this->specialty_explode($rel_name_singular);
 
-		$specialty = $specialty_explode[1];
-		$specialty_prefix = $this->specialty_prefix($specialty);
-		$foreign_singular = $specialty_explode[0];
-		$foreign_plural = $this->grammar_plural($foreign_singular);
-		$foreign_rel_name = $specialty_prefix.$local_table;
 
 		$rel = array(
 			"rel_name_singular" => $rel_name_singular,
-			"specialty" => $specialty,
-			"specialty_prefix" => $specialty_prefix,
-			"foreign_singular" => $foreign_singular,
-			"foreign_plural" => $foreign_plural,
-			"foreign_rel_name" => $foreign_rel_name,
 		);
 
 		return $rel;
@@ -393,40 +350,6 @@ class erd_lib extends MY_Controller
 			$string = $string."s";
 		}
 		return $string;
-	}
-
-
-
-	function specialty_explode($haystack)
-	{
-
-
-		$needle = "/(.*?)_specialty_(.*)/i";
-		$check_match = preg_match($needle, $haystack, $reg_results);
-		if ($check_match) {
-			$result = array(
-				$reg_results[2],
-				$reg_results[1]
-			);
-		} else {
-			$result = array(
-				$haystack,
-				""
-			);
-		}
-		return $result;
-
-	}
-
-	function specialty_prefix($specialty)
-	{
-		if ($specialty !== "") {
-			$result = $specialty."_specialty_";
-		} else {
-			$result = "";
-		}
-		return $result;
-
 	}
 
 	function db_to_erd()

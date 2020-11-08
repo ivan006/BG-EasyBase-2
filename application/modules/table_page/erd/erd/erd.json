@@ -31,7 +31,7 @@
         "Type": "bigint(20) unsigned"
       }
     },
-    "relationships": {
+    "items": {
       "event_resource_links": "event_id"
     }
   },
@@ -48,7 +48,7 @@
         "Null": "NO"
       }
     },
-    "relationships": {
+    "items": {
       "events": "organization_id"
     }
   },
@@ -65,7 +65,7 @@
         "Null": "NO"
       }
     },
-    "relationships": {
+    "items": {
       "event_resource_links": "event_id"
     }
   }

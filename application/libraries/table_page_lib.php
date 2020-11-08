@@ -210,14 +210,8 @@ class table_page_lib extends MY_Controller
 			$rows_formatted[]["name"] = $value;
 		}
 
-		// $result = array();
-		foreach ($rows_formatted as $key => $value) {
-			if (!$this->erd_lib->endsWith($value["name"], "_links")) {
-				$rows_no_links[]["name"] = $value["name"];
-			}
-		}
 
-		$data = array('responce' => 'success', 'posts' => $rows_no_links);
+		$data = array('responce' => 'success', 'posts' => $rows_formatted);
 		return $data;
   }
 
