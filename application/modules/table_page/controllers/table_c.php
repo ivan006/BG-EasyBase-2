@@ -17,11 +17,10 @@ class Table_c extends MY_Controller
 	{
 		$data["rows"]["all"] = $this->table_page_lib->table_rows($table_page_lib_table);
 		$data["rows"]["visible"] = array();
+		echo "<pre>";
+		var_dump($data["rows"]["all"]);
 		foreach ($data["rows"]["all"] as $key => $value) {
-			// if (!$this->erd_lib->endsWith($join_merge_key, "_children") && $parent_name["foreign_singular"]."_id" !== $join_merge_key) {
-			if (!$this->erd_lib->endsWith($key, "_children")) {
-				$data["rows"]["visible"][$key] = $value;
-			}
+			$data["rows"]["visible"][$key] = $value;
 		}
 		$data["overview"]["foreign_plural"] = $table_page_lib_table;
 		$data["overview"]["foreign_singular"] = $this->erd_lib->grammar_singular($data["overview"]["foreign_plural"]);

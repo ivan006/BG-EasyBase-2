@@ -13,7 +13,7 @@ class erd_lib extends MY_Controller
 
 	function erd_to_db()
 	{
-		$erd_two_path = APPPATH.'modules/table_page/erd/erd/erd_two.json';
+		$erd_two_path = APPPATH.'modules/table_page/erd/erd/erd.json';
 		// include($erd_two_path);
 		$erd_two = file_get_contents($erd_two_path);
 		$erd_two = json_decode($erd_two, true);
@@ -91,7 +91,7 @@ class erd_lib extends MY_Controller
 
 	function erd()
 	{
-		$one_path = APPPATH.'modules/table_page/erd/erd/erd_two.json';
+		$one_path = APPPATH.'modules/table_page/erd/erd/erd.json';
 		// include($one_path);
 		$one = file_get_contents($one_path);
 		$one = json_decode($one, true);
@@ -111,9 +111,16 @@ class erd_lib extends MY_Controller
 	{
 
 		$db_to_erd = $this->db_to_erd();
-		$erd = $this->erd();
 
-		if ($db_to_erd == $erd) {
+		$erd = $this->erd();
+		$erd_no_rels = json_decode($erd, true);
+		foreach ($erd_no_rels as $key => $value) {
+			unset($erd_no_rels[$key]["relationships"]);
+		}
+		$erd_no_rels = json_encode($erd_no_rels, JSON_PRETTY_PRINT);
+
+
+		if ($db_to_erd == $erd_no_rels) {
 			$identicle = "yes";
 		} else {
 			$identicle = "no";

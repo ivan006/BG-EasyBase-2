@@ -32,7 +32,7 @@
       <hr>
     </details>
 
-    <details open=open>
+    <details>
       <summary>DB to ERD</summary>
 
       <pre><?php echo $db_to_erd; ?></pre>
@@ -49,7 +49,7 @@
     <details>
       <summary>ERD cache</summary>
 
-      <pre><?php echo 123; ?></pre>
+      <pre>Relationship errors: <?php echo 123; ?></pre>
       <hr>
       <pre><?php echo $model_two; ?></pre>
       <hr>
