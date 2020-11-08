@@ -77,7 +77,7 @@ class Record_c extends MY_Controller
 				if ($key !== $dont_scan) {
 
 
-					$overview["rel_name"] = $key." as ".$value;
+					$overview["rel_name"] = $key." (".$value." specialised)";
 					$overview["rel_name_id"] = preg_replace('/\W+/','',strtolower(strip_tags($overview["rel_name"])));
 					$overview["table"] = $key;
 					$overview["foreign_key"] = $value;
