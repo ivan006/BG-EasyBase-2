@@ -205,8 +205,7 @@ class table_page_lib extends MY_Controller
     );
     $row_query = implode(" ", $row_query);
     $rows = $this->db->query($row_query)->result_array();
-    $rows = array_column($rows, 'Tables_in_greenbluegpyuty_db5');
-		$rows_formatted = array();
+    $rows = array_column($rows, 'Tables_in_'.$this->db->database);
 		foreach ($rows as $key => $value) {
 			$rows_formatted[]["name"] = $value;
 		}
