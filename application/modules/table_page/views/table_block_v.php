@@ -229,7 +229,7 @@ if (isset($overview["type"])) {
           var i = "1";
           $('#<?php echo $overview["rel_name_id"]; ?>_records').DataTable( {
             "data": data.posts,
-            // "responsive": true,
+            "responsive": true,
             dom:
             "<'row'<'col-sm-12 col-md-4'l><'col-sm-12 col-md-4'B><'col-sm-12 col-md-4'f>>" +
             "<'row'<'col-sm-12'tr>>" +
