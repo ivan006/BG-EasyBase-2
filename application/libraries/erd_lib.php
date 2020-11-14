@@ -420,6 +420,16 @@ class erd_lib extends MY_Controller
 
 			$tables_and_fields[$key]["fields"] = $fields_result;
 
+
+			// $query = array(
+			// 	"SHOW TABLE STATUS LIKE '$key'",
+			// );
+			// $query = implode(" ", $query);
+			// $query_result = $this->db->query($query)->result_array();
+			// $Auto_increment = $query_result[0]["Auto_increment"];
+			//
+			// $tables_and_fields[$key]["auto_increment"] = $Auto_increment;
+
 		}
 
 		$result = json_encode($tables_and_fields, JSON_PRETTY_PRINT);
