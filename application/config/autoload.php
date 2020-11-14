@@ -37,10 +37,7 @@
 |
 */
 
-$autoload['packages'] = array(
-  APPPATH.'third_party/datamapper',
-  APPPATH.'third_party/ion_auth'
-);
+$autoload['packages'] = array(APPPATH.'third_party/datamapper');
 
 
 /*

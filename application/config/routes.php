@@ -63,26 +63,5 @@ $route['table_page/api/table/t/(:any)/fetch_join_where/t/(:any)/h/(:any)/n/(:any
 $route['table_page/record/t/(:any)/r/(:num)'] = 'table_page/record_c/index/$1/$2';
 
 $route['mergetest'] = 'table_page/record_c/mergetest';
-
-// $route['ion_auth'] = 'ion_auth/auth';
-// $route['login'] = 'ion_auth/auth/login';
-
-// index()
-// login()
-// logout()
-// change_password()
-// forgot_password()
-// reset_password($code = NULL)
-// activate($id, $code = FALSE)
-// deactivate($id = NULL)
-// create_user()
-// redirectUser()edit_user($id)
-// create_group()
-// edit_group($id)
-// _get_csrf_nonce()
-// _valid_csrf_nonce()
-// _render_page($view, $data = NULL, $returnhtml = FALSE)
-
-
 /* End of file routes.php */
 /* Location: ./application/config/routes.php */
