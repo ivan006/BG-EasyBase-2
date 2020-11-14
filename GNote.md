@@ -1,2 +1,1 @@
-https://medium.com/@chrisluwi/why-you-should-use-codeigniter-instead-of-laravel-36c33ea0e45a
-https://www.youtube.com/watch?v=fucEtLz-PsI
+https://webeasystep.com/blog/view_article/What_is_the_best_authentication_library_for_CodeIgniter
